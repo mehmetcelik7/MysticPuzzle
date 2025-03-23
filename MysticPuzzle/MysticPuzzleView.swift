@@ -11,7 +11,7 @@ import SwiftUI
 
 
 
-struct MysicPuzzleView: View {
+struct MysticPuzzleView: View {
     
     @StateObject var mysticPuzzleViewModel = MysticPuzzleViewModel()
     let tileDimensions:CGFloat = 70.0
@@ -30,15 +30,21 @@ struct MysicPuzzleView: View {
                 
                 
                 ZStack {
-                 
-                    let tiless = mysticPuzzleViewModel.mysticPuzzleModel.tiles
+                    let tiles = mysticPuzzleViewModel.mysticPuzzleModel.tiles
                     
-                    ForEach(tiless) { tile in
+                    ForEach(tiles) { tile in
+                       
                         TileView(tileNumber: tile.value, tileDimensions: tileDimensions, offset: tile.currentPoint)
                     }
                 
                    
                 }
+                .frame(maxWidth: tileDimensions * 4, maxHeight: tileDimensions * 4)
+                .background(.blue.opacity(0.5))
+                .shadow(color: .blue.opacity(0.5), radius: 10,x: 3, y: 3)
+                .cornerRadius(20)
+                .padding()
+                .padding(.vertical)
             }
             
         }
@@ -46,7 +52,7 @@ struct MysicPuzzleView: View {
 }
 
 #Preview {
-    MysicPuzzleView()
+    MysticPuzzleView()
 }
 
 struct TileView: View {
@@ -54,7 +60,7 @@ struct TileView: View {
     let tileDimensions:CGFloat
     let offset:CGPoint
     let somePadding : CGFloat = 3
-    let digitResizeFactor: CGFloat = 5 / 2
+    let digitResizeFactor: CGFloat = 2 / 5
     
     var body: some View {
         let direction = offset * tileDimensions
@@ -63,16 +69,17 @@ struct TileView: View {
         let deltaY = direction.y - 3 * tileDimensions / 2
         
         
-        Image("digit\(tileNumber)")
+        Image( "digit\(tileNumber)")
             .resizable()
             .renderingMode(.template)
             .foregroundColor(.red)
             .aspectRatio(contentMode: .fit)
-            .frame(width: tileDimensions , height: tileDimensions)
+            .frame(width: tileDimensions * 0.8 , height: tileDimensions * 0.8 )
             .padding()
             .background(
-                Color.gray
-                    .frame(width: tileDimensions - somePadding,height: tileDimensions)
+              Image("MarbleTileBackground")
+                    .resizable()
+                    .frame(width: tileDimensions - somePadding,height: tileDimensions - somePadding)
                     .cornerRadius(10)
             )
             .offset(x: deltaX, y: deltaY)
