@@ -7,18 +7,23 @@
 
 import SwiftUI
 
-struct ContentView: View {
+
+
+
+
+
+struct MysicPuzzleView: View {
     var body: some View {
         VStack {
             Image(systemName: "globe")
                 .imageScale(.large)
                 .foregroundStyle(.tint)
-            Text("Hello, world!")
+            Text("Mystic Puzzle!")
         }
         .padding()
     }
 }
 
 #Preview {
-    ContentView()
+    MysicPuzzleView()
 }
