@@ -11,7 +11,6 @@ import SwiftUI
 
 
 
-
 struct MysicPuzzleView: View {
     var body: some View {
         VStack {

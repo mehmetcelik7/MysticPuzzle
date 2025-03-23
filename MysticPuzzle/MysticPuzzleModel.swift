@@ -34,7 +34,7 @@ struct TileModel: Identifiable {
 /// The game consists of an array of tiles and n is the number of rows and columns in the game
 /// For instance if n = 4 then we will look at a 4x4 board and there will be 15 tiles, i.e. n*n-1
 /// We will focues on the 15 tile game (we called it the mystic puzzle). However we will be able to generalize the game  for any n.
-struct MysicPuzzleModel: Identifiable {
+struct MysticPuzzleModel: Identifiable {
     let id: UUID
     var tiles: [TileModel]
     let n: Int
