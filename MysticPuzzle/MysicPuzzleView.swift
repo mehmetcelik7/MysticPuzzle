@@ -12,14 +12,36 @@ import SwiftUI
 
 
 struct MysicPuzzleView: View {
+    
+    @StateObject var mysticPuzzleViewModel = MysticPuzzleViewModel()
+    let tileDim:CGFloat = 70.0
+    let title = "Mystic Puzzle"
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Mystic Puzzle!")
+     
+        ZStack {
+            
+            Color(.blue).opacity(0.3).ignoresSafeArea()
+            
+            VStack {
+                Text(title)
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .padding()
+                
+                
+                ZStack {
+                    Text("Tiles")
+                    Image("digit0")
+                        .resizable()
+                        .renderingMode(.template)
+                        .foregroundColor(.red)
+                        .frame(width: tileDim, height: tileDim)
+                    
+                   
+                }
+            }
+            
         }
-        .padding()
     }
 }
 
