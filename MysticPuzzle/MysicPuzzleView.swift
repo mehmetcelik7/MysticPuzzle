@@ -14,7 +14,7 @@ import SwiftUI
 struct MysicPuzzleView: View {
     
     @StateObject var mysticPuzzleViewModel = MysticPuzzleViewModel()
-    let tileDim:CGFloat = 70.0
+    let tileDimensions:CGFloat = 70.0
     let title = "Mystic Puzzle"
     var body: some View {
      
@@ -30,13 +30,13 @@ struct MysicPuzzleView: View {
                 
                 
                 ZStack {
-                    Text("Tiles")
-                    Image("digit0")
-                        .resizable()
-                        .renderingMode(.template)
-                        .foregroundColor(.red)
-                        .frame(width: tileDim, height: tileDim)
+                 
+                    let tiless = mysticPuzzleViewModel.mysticPuzzleModel.tiles
                     
+                    ForEach(tiless) { tile in
+                        TileView(tileNumber: tile.value, tileDimensions: tileDimensions, offset: tile.currentPoint)
+                    }
+                
                    
                 }
             }
@@ -47,4 +47,35 @@ struct MysicPuzzleView: View {
 
 #Preview {
     MysicPuzzleView()
+}
+
+struct TileView: View {
+    let tileNumber: Int
+    let tileDimensions:CGFloat
+    let offset:CGPoint
+    let somePadding : CGFloat = 3
+    let digitResizeFactor: CGFloat = 5 / 2
+    
+    var body: some View {
+        let direction = offset * tileDimensions
+        
+        let deltaX = direction.x + tileDimensions / 2
+        let deltaY = direction.y - 3 * tileDimensions / 2
+        
+        
+        Image("digit\(tileNumber)")
+            .resizable()
+            .renderingMode(.template)
+            .foregroundColor(.red)
+            .aspectRatio(contentMode: .fit)
+            .frame(width: tileDimensions , height: tileDimensions)
+            .padding()
+            .background(
+                Color.gray
+                    .frame(width: tileDimensions - somePadding,height: tileDimensions)
+                    .cornerRadius(10)
+            )
+            .offset(x: deltaX, y: deltaY)
+            .shadow(color: .black, radius: 1 , x: 1, y :1 )
+    }
 }
