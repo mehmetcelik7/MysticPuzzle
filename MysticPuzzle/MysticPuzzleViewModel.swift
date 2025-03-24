@@ -159,6 +159,13 @@ class MysticPuzzleViewModel: ObservableObject {
                     winningPoint: DOWN * 3
                 )
             )
+        tiles.append(
+            TileModel(
+                value: 16,
+                currentPoint: DOWN * 3 + RIGHT,
+                winningPoint: DOWN * 3 + RIGHT
+            )
+        )
  
         
         let n = 4
@@ -166,5 +173,27 @@ class MysticPuzzleViewModel: ObservableObject {
     }
     func shuffle() {
         
+    }
+    func move(index: Int) -> Bool {
+        var result = false
+        
+        let n = mysticPuzzleModel.n
+        let emptyPosition = mysticPuzzleModel.tiles[n * n - 1].currentPoint
+        let tilePosition = mysticPuzzleModel.tiles[index].currentPoint
+        let distance = tilePosition.distanceTo(point: emptyPosition)
+        
+        if distance == 1 {
+            mysticPuzzleModel.tiles[index] = TileModel(
+                value: mysticPuzzleModel.tiles[index].value,
+                currentPoint: emptyPosition,
+                winningPoint: mysticPuzzleModel.tiles[index].winningPoint
+            )
+            mysticPuzzleModel.tiles[n * n - 1].currentPoint = tilePosition
+            
+            result = true
+            
+        }
+        
+        return result
     }
 }

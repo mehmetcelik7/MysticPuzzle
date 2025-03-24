@@ -13,7 +13,7 @@ import SwiftUI
 
 struct MysticPuzzleView: View {
     
-    @StateObject var mysticPuzzleViewModel = MysticPuzzleViewModel()
+    @StateObject var mysticPuzzleViewModel : MysticPuzzleViewModel = MysticPuzzleViewModel()
     let tileDimensions:CGFloat = 70.0
     let title = "Mystic Puzzle"
     var body: some View {
@@ -30,12 +30,22 @@ struct MysticPuzzleView: View {
                     .foregroundColor(.white)
                 
                 ZStack {
-                    let tiles = mysticPuzzleViewModel.mysticPuzzleModel.tiles
-                    ForEach(tiles) { tile in
+                  
+                    let last = mysticPuzzleViewModel.mysticPuzzleModel.count-1
+                    ForEach(0..<last) { index in
+                        let tile = mysticPuzzleViewModel.mysticPuzzleModel.tiles[index]
                         TileView(tileNumber: tile.value, tileDimensions: tileDimensions, offset: tile.currentPoint)
+                            .onTapGesture {
+                                withAnimation(.easeOut(duration: 0.2)) {
+                                    if mysticPuzzleViewModel.move(index: index) {
+                                        print("move tile!")
+                                    }
+                                }
+                            }
+                           
+                        
                     }
-                
-                   
+                  
                 }
                 .frame(maxWidth: tileDimensions * 4, maxHeight: tileDimensions * 4)
                 .padding()
