@@ -31,9 +31,7 @@ struct MysticPuzzleView: View {
                 
                 ZStack {
                     let tiles = mysticPuzzleViewModel.mysticPuzzleModel.tiles
-                    
                     ForEach(tiles) { tile in
-                       
                         TileView(tileNumber: tile.value, tileDimensions: tileDimensions, offset: tile.currentPoint)
                     }
                 
@@ -60,7 +58,7 @@ struct TileView: View {
     let tileDimensions:CGFloat
     let offset:CGPoint
     let somePadding : CGFloat = 3
-    let digitResizeFactor: CGFloat = 2 / 5
+    let digitResizeFactor: CGFloat = 0.8
     
     var body: some View {
         let direction = offset * tileDimensions
@@ -75,6 +73,7 @@ struct TileView: View {
             .foregroundColor(.red)
             .aspectRatio(contentMode: .fit)
             .frame(width: tileDimensions * 0.8 , height: tileDimensions * 0.8 )
+            .scaleEffect(tileNumber < 10  || tileNumber == 11 ? 0.8 : 1)
             .padding()
             .background(
               Image("MarbleTileBackground")

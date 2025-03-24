@@ -50,4 +50,4 @@ struct MysticPuzzleModel: Identifiable {
 let LEFT = CGPoint(x: -1, y: 0)
 let RIGHT = CGPoint(x: 1, y: 0)
 let UP = CGPoint(x: 0, y: -1)
-let DOWN = CGPoint(x: 0, y: 0)
+let DOWN = CGPoint(x: 0, y: 1)
