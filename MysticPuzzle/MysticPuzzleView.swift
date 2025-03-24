@@ -16,6 +16,9 @@ struct MysticPuzzleView: View {
     @StateObject var mysticPuzzleViewModel : MysticPuzzleViewModel = MysticPuzzleViewModel()
     let tileDimensions:CGFloat = 70.0
     let title = "Mystic Puzzle"
+    let newGamePrompt = "New Game"
+    let shufflePrompt = "Shuffle"
+    let easyGamePromt = "Easy Game"
     var body: some View {
      
         ZStack {
@@ -23,16 +26,14 @@ struct MysticPuzzleView: View {
                 .opacity(0.9).ignoresSafeArea()
             
             VStack {
-                Text(title)
-                    .font(.largeTitle)
-                    .font(Font.custom("ChalkboardSE-Bold", size: 42))
-                    .fontWeight(.bold)
-                    .foregroundColor(.white)
+               
+                
+                ChalkboardTextView(text: title, size: 42, color: .white)
                 
                 ZStack {
                   
-                    let last = mysticPuzzleViewModel.mysticPuzzleModel.count-1
-                    ForEach(0..<last) { index in
+                    let last = mysticPuzzleViewModel.mysticPuzzleModel.tiles.count-1
+                    ForEach(0..<last,id: \.self) { index in
                         let tile = mysticPuzzleViewModel.mysticPuzzleModel.tiles[index]
                         TileView(tileNumber: tile.value, tileDimensions: tileDimensions, offset: tile.currentPoint)
                             .onTapGesture {
@@ -60,16 +61,46 @@ struct MysticPuzzleView: View {
                 .padding(.vertical)
                 .shadow(color: .black, radius: 10,x: 3, y: 3)
                 
-                Button(action: {
-                    mysticPuzzleViewModel.createInitialItems()
-                    mysticPuzzleViewModel.shuffle()
-                }, label: {
-                    Text("Shuffle ")
-                        .font(.largeTitle)
-                        .font(Font.custom("ChalkboardSE-Bold", size: 42))
-                        .fontWeight(.bold)
-                        .foregroundColor(.yellow)
-                })
+                HStack {
+                    Button(
+                        action: {
+                            mysticPuzzleViewModel.createInitialItems()
+                            mysticPuzzleViewModel.shuffle()
+                        },
+                        label: {
+                            ChalkboardTextView(
+                                text:mysticPuzzleViewModel.done() ? newGamePrompt : shufflePrompt,
+                                size: 24,
+                                color: .yellow
+                            )
+                            .padding()
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 12)
+                                    .stroke(.yellow,lineWidth: 3)
+                            )
+                            .padding(.vertical)
+                        })
+                    Button(
+                        action: {
+                            mysticPuzzleViewModel.createInitialItems()
+                            mysticPuzzleViewModel.shuffle()
+                        },
+                        label: {
+                            ChalkboardTextView(
+                                text: easyGamePromt,
+                                size: 24,
+                                color: .green
+                            )
+                            .padding()
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 12)
+                                    .stroke(.yellow,lineWidth: 3)
+                            )
+                            .padding(.vertical)
+                        })
+                    
+                    
+                }
                
                 
             }
@@ -78,8 +109,19 @@ struct MysticPuzzleView: View {
     }
 }
 
-#Preview {
-    MysticPuzzleView()
+
+struct ChalkboardTextView: View {
+    let text: String
+    let size: CGFloat
+    let color: Color
+    var body: some View {
+        Text(text)
+            .font(.largeTitle)
+            .font(Font.custom("ChalkboardSE-Bold", size: size))
+            .fontWeight(.bold)
+            .foregroundColor(color)
+            .shadow(color: color, radius: 1)
+    }
 }
 
 struct TileView: View {
@@ -116,4 +158,9 @@ struct TileView: View {
                 .shadow(color: .black, radius: 1 , x: 1, y :1 )
         
     }
+}
+
+
+#Preview {
+    MysticPuzzleView()
 }

@@ -172,6 +172,9 @@ class MysticPuzzleViewModel: ObservableObject {
         self.mysticPuzzleModel = MysticPuzzleModel(tiles: tiles, n: n)
     }
     
+    func done() -> Bool {
+        return true
+    }
     
     func shuffle() {
         
