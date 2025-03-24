@@ -6,17 +6,33 @@
 //
 
 import AVFoundation
+import UIKit
+
+
+
+
 
 
 class MysticPuzzleViewModel: ObservableObject {
     @Published var mysticPuzzleModel: MysticPuzzleModel = MysticPuzzleModel(tiles: [], n: 0)
     
     init() {
+//        self.findFonts()
         self.createInitialItems()
         self.shuffle()
     }
     
-    //TODO:
+/// font değiştirmeyi kullanmadık ama değiştirmek istersek kullanabiliriz diye bunu buraya bıraktım
+   
+//    func findFonts() {
+//        for family in UIFont.familyNames.sorted(){
+//            let names = UIFont.fontNames(forFamilyName: family)
+//            print("Family: \(family) Font names: \(names)")
+//        }
+//    }
+//  
+    
+    
     func createInitialItems() {
         var tiles: [TileModel] = []
        
@@ -143,15 +159,7 @@ class MysticPuzzleViewModel: ObservableObject {
                     winningPoint: DOWN * 3
                 )
             )
-        tiles
-            .append(
-                TileModel(
-                    value: 16,
-                    currentPoint: RIGHT * 1 + DOWN * 3,
-                    winningPoint: RIGHT * 1 + DOWN * 3
-                )
-        )
-        
+ 
         
         let n = 4
         self.mysticPuzzleModel = MysticPuzzleModel(tiles: tiles, n: n)

@@ -25,9 +25,9 @@ struct MysticPuzzleView: View {
             VStack {
                 Text(title)
                     .font(.largeTitle)
+                    .font(Font.custom("ChalkboardSE-Bold", size: 42))
                     .fontWeight(.bold)
-                    .padding()
-                
+                    .foregroundColor(.white)
                 
                 ZStack {
                     let tiles = mysticPuzzleViewModel.mysticPuzzleModel.tiles
@@ -73,21 +73,24 @@ struct TileView: View {
         let deltaY = direction.y - 3 * tileDimensions / 2
         
         
-        Image( "digit\(tileNumber)")
-            .resizable()
-            .renderingMode(.template)
-            .foregroundColor(.red)
-            .aspectRatio(contentMode: .fit)
-            .frame(width: tileDimensions * 0.8 , height: tileDimensions * 0.8 )
-            .scaleEffect(tileNumber < 10  || tileNumber == 11 ? 0.8 : 1)
-            .padding()
-            .background(
-              Image("MarbleTileBackground")
-                    .resizable()
-                    .frame(width: tileDimensions - somePadding,height: tileDimensions - somePadding)
-                    .cornerRadius(10)
-            )
-            .offset(x: deltaX, y: deltaY)
-            .shadow(color: .black, radius: 1 , x: 1, y :1 )
+        
+       
+            Image( "digit\(tileNumber)")
+                .resizable()
+                .renderingMode(.template)
+                .foregroundColor(.red)
+                .aspectRatio(contentMode: .fit)
+                .frame(width: tileDimensions * 0.8 , height: tileDimensions * 0.8 )
+                .scaleEffect(tileNumber < 10  || tileNumber == 11 ? 0.8 : 1)
+                .padding()
+                .background(
+                  Image("MarbleTileBackground")
+                        .resizable()
+                        .frame(width: tileDimensions - somePadding,height: tileDimensions - somePadding)
+                        .cornerRadius(10)
+                )
+                .offset(x: deltaX, y: deltaY)
+                .shadow(color: .black, radius: 1 , x: 1, y :1 )
+        
     }
 }
