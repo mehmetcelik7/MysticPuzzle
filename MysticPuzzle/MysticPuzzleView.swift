@@ -59,6 +59,19 @@ struct MysticPuzzleView: View {
                 .padding()
                 .padding(.vertical)
                 .shadow(color: .black, radius: 10,x: 3, y: 3)
+                
+                Button(action: {
+                    mysticPuzzleViewModel.createInitialItems()
+                    mysticPuzzleViewModel.shuffle()
+                }, label: {
+                    Text("Shuffle ")
+                        .font(.largeTitle)
+                        .font(Font.custom("ChalkboardSE-Bold", size: 42))
+                        .fontWeight(.bold)
+                        .foregroundColor(.yellow)
+                })
+               
+                
             }
             
         }

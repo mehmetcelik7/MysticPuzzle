@@ -171,9 +171,35 @@ class MysticPuzzleViewModel: ObservableObject {
         let n = 4
         self.mysticPuzzleModel = MysticPuzzleModel(tiles: tiles, n: n)
     }
+    
+    
     func shuffle() {
         
+        let n = mysticPuzzleModel.n
+        
+        for _ in 0..<n * n {
+            let (i,j) = getRandomIJ(max: n*n - 1)
+            let lastPosition = mysticPuzzleModel.tiles[i].currentPoint
+            
+            mysticPuzzleModel.tiles[i].currentPoint = mysticPuzzleModel.tiles[j].currentPoint
+            
+            mysticPuzzleModel.tiles[j].currentPoint = lastPosition
+        }
+        
     }
+    
+    func getRandomIJ(max: Int) -> (Int,Int) {
+        if max == 1 {
+            return (1,1)
+        }
+        let i = Int.random(in: 0...max)
+        var j: Int
+        repeat {
+            j = Int.random(in: 0...max)
+        }while (i==j )
+        return (i,j)
+    }
+    
     func move(index: Int) -> Bool {
         var result = false
         
