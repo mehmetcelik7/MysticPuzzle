@@ -12,8 +12,6 @@ import UIKit
 
 import AVFoundation
 var audioPlayer: AVAudioPlayer? = AVAudioPlayer()
-
-
 // ViewModel
 class MysticPuzzleViewModel: ObservableObject {
     @Published var mysticPuzzleModel: MysticPuzzleModel = MysticPuzzleModel(tiles: [], n: 0) {
@@ -21,8 +19,6 @@ class MysticPuzzleViewModel: ObservableObject {
             saveItems()
         }
     }
-    
-    
     let itemsKey = "Tile list"
     init() {
         guard
@@ -160,9 +156,7 @@ class MysticPuzzleViewModel: ObservableObject {
         
         return distance == 1
     }
-    // NEW DRAG
-    
-    
+   
     func move( index: Int) -> Bool {
         var result = false
         let n = mysticPuzzleModel.n
@@ -188,7 +182,6 @@ class MysticPuzzleViewModel: ObservableObject {
         
         return result
     }
-    
     // 1 2 3 4 5 6 8 7 9 10 11 12 13 14 15
     func shuffle() {
         // If n is even do even number of inversions
@@ -222,7 +215,6 @@ class MysticPuzzleViewModel: ObservableObject {
         return (i,j)
     }
 }
-
 // Play sound with default volume value
 // set to 1.0
 func playSound(sound: String, type: String, volume: Float = 1.0) {
