@@ -19,8 +19,8 @@ struct MysticPuzzleView: View {
     var body: some View {
      
         ZStack {
-            
-            Color(.blue).opacity(0.3).ignoresSafeArea()
+            Image("WaterBackground")
+                .opacity(0.9).ignoresSafeArea()
             
             VStack {
                 Text(title)
@@ -38,11 +38,17 @@ struct MysticPuzzleView: View {
                    
                 }
                 .frame(maxWidth: tileDimensions * 4, maxHeight: tileDimensions * 4)
-                .background(.blue.opacity(0.5))
-                .shadow(color: .blue.opacity(0.5), radius: 10,x: 3, y: 3)
+                .padding()
+                .background(
+                    Image("BlueMarbleBackground")
+                        .resizable()
+                        .opacity(0.9)
+                        
+                )
                 .cornerRadius(20)
                 .padding()
                 .padding(.vertical)
+                .shadow(color: .black, radius: 10,x: 3, y: 3)
             }
             
         }
